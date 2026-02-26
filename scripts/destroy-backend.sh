@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-BUCKET_NAME="${1:-terraform-state-scps-$(aws sts get-caller-identity --query Account --output text)}"
-TABLE_NAME="${2:-terraform-state-lock}"
+BUCKET_NAME="${1:-terraform-state-scps-a1b2c44}"
+TABLE_NAME="${2:-terraform-state-lock-scps}"
 REGION="${3:-us-east-1}"
 
 echo "Emptying S3 bucket: $BUCKET_NAME"
