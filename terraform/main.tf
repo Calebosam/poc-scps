@@ -1,4 +1,12 @@
 terraform {
+  backend "s3" {
+    bucket         = "terraform-state-scps-a1b2c44"
+    key            = "scps/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-state-lock-scps"
+    encrypt        = true
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"

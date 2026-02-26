@@ -1,0 +1,33 @@
+name: Setup Backend
+
+on:
+  workflow_dispatch:
+    inputs:
+      bucket_name:
+        description: 'S3 bucket name (optional)'
+        required: false
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Setup Backend
+        run: |
+          if [ -n "${{ github.event.inputs.bucket_name }}" ]; then
+            ./scripts/setup-backend.sh "${{ github.event.inputs.bucket_name }}"
+          else
+            ./scripts/setup-backend.sh
+          fi
