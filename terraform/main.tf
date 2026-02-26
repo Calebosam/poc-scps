@@ -23,7 +23,7 @@ resource "aws_organizations_policy" "scps" {
   for_each = fileset("${path.module}/../policies", "*.json")
 
   name        = replace(each.value, ".json", "")
-  description = "Managed by Terraform"
+  description = "Managed by Terraform - FinOps Team"
   content     = file("${path.module}/../policies/${each.value}")
   type        = "SERVICE_CONTROL_POLICY"
 }
